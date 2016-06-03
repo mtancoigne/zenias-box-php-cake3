@@ -1,18 +1,22 @@
-# Work in progress
+# Zeus PHP - CakePHP3
+
+CakePHP3.2 ready to use with Zeus.
+
+Zeus is a work in progress for [FreeCodeCamp](http://freecodecamp.com), an opensource learning platform for programmers.
+
+It's goal is to give access to vagrant virtual machines configured for a lot of languages and ready to use with GitHub and Heroku.
+
 
 ## Prerequisites:
   - VirtualBox
   - Vagrant (with utils module)
   - An Heroku account
+	- [Zeus](https://github.com/alayek/zeus)
 
 ## Test
 ```bash
-# Clone the repo
-git clone https://github.com/mtancoigne/heroku-cakephp3-app.git heroku-cakephp3-app
-cd heroku-cakephp3-app
-
 # Create the box
-vagrant up
+zeus -l php -d <path> -o cake3
 
 # test the box, going to http://localhost:8080 or http://192.168.56.101.
 
@@ -20,7 +24,12 @@ vagrant up
 vagrant ssh
 
 # Navigate to the site sources
-cd /vagrant
+cd /vagrant/www
+
+# Initialise a git repo and commit
+git init
+git add .
+git commit -m 'first commit'
 
 # Login to heroku
 heroku login
@@ -32,22 +41,10 @@ heroku create
 git push heroku master
 # Optionnal: enable postgreSQL on Heroku:
 heroku addons:create heroku-postgresql:hobby-dev
-# Optionnal: if you want to test the Beer sample plugin (postgreSQL must have been enabled)
-heroku run "./bin/cake migrations migrate -p Beers"
 
 # Test the heroku box :
 heroku open
 ```
 
-## Test: the Beer sample plugin
-We included a sample plugin about beers and beer notations. It is really basic and
-is activated by default in the box.
-
-If you don't need it anymore, you can disable it this way:
-
-```bash
-./bin/cake plugin unload Beers
-
-# Now you can remove the plugin physically:
-rm -rf plugins/Beers
-```
+## Notes
+For now, cache is disabled on Heroku. You can help me with this issue (#2)
