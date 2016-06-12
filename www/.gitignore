@@ -1,0 +1,6 @@
+# Gitignore for this folder, so you can create a repository in it
+vendor/*
+tmp/*
+logs/*
+
+composer.phar
